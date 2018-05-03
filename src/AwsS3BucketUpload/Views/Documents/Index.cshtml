@@ -1,0 +1,35 @@
+﻿@model AwsS3BucketUpload.Models.Document
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@using (Html.BeginForm("Create", "Documents", FormMethod.Post, new { encType = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h2>Document</h2>
+        <hr />
+       
+        
+        @Html.AntiForgeryToken()
+    
+
+        @Html.TextBoxFor(m => m.File, new { type = "file", name = "Files", @class = "btn btn-primary" })<br /><br />
+
+        <input type="submit" value="Upload Document" name="submitme" id="submitme" class="btn btn-primary" />
+
+    </div>
+}
+<br/>
+<br/>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
