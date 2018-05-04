@@ -17,7 +17,7 @@ namespace AwsS3BucketUpload.Controllers
         }
 
 
-        [ValidateAntiForgeryToken, HttpPost]
+        [ HttpPost]
         public ActionResult Create(Document document)
         {
             if (ModelState.IsValid)
@@ -32,27 +32,17 @@ namespace AwsS3BucketUpload.Controllers
                     Stream st = file.InputStream;
 
                     string name = file.FileName;
-                    string myBucketName = "test73"; //your s3 bucket name goes here  
-                    string s3DirectoryName = "";
-                    string s3FileName = @name;
-                    bool a;
+                    string myBucketName = "vgg-aws-tst-bucket"; //your s3 bucket name goes here  
+                    string s3DirectoryName = "EdutechApplyV3";
+                    string s3FileName = file.FileName;
                     AmazonUploader myUploader = new AmazonUploader();
-                    a = myUploader.sendMyFileToS3(st, myBucketName, s3DirectoryName, s3FileName);
-                    if (a == true)
+                    var uploadStatus = myUploader.SendMyFileToS3(st, myBucketName, s3DirectoryName, s3FileName);
+                    if (uploadStatus == true)
                     {
                         Response.Write("successfully uploaded");
-
                     }
                     else
                         Response.Write("Error");
-
-
-
-
-
-                    // await _documentService.SaveDocument(model.ToEntity(), file.InputStream, file.FileName, file.ContentType, file.ContentLength);
-
-                    // SuccessNotification(Domain.Messages.Document.Admin.DocumentCreated);
 
                     return RedirectToAction("Index");
                 }

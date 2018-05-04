@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm("Create", "Documents", FormMethod.Post, new { encType = "multipart/form-data" })) 
 {
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
     
     <div class="form-horizontal">
         <h2>Document</h2>

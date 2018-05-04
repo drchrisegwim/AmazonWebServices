@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using Amazon;
@@ -11,22 +12,22 @@ namespace AwsS3BucketUpload.Models
 {
     public class AmazonUploader
     {
-
-        public bool sendMyFileToS3(System.IO.Stream localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3)
+        public bool SendMyFileToS3(Stream localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3)
         {
-            IAmazonS3 client = new AmazonS3Client();
+            
+            AmazonS3Client client = new AmazonS3Client( RegionEndpoint.EUWest1);
             TransferUtility utility = new TransferUtility(client);
             TransferUtilityUploadRequest request = new TransferUtilityUploadRequest();
 
-            if (subDirectoryInBucket == "" || subDirectoryInBucket == null)
+            if (string.IsNullOrEmpty(subDirectoryInBucket))
             {
                 request.BucketName = bucketName; //no subdirectory just bucket name  
             }
             else
             {   // subdirectory and bucket name  
-                request.BucketName = bucketName + @"/" + subDirectoryInBucket;
+                request.BucketName = bucketName ;
             }
-            request.Key = fileNameInS3; //file name up in S3  
+            request.Key = subDirectoryInBucket + @"/" + fileNameInS3; //file name up in S3  
             request.InputStream = localFilePath;
             utility.Upload(request); //commensing the transfer  
 
