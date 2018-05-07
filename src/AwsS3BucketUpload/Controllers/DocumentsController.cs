@@ -39,10 +39,10 @@ namespace AwsS3BucketUpload.Controllers
                     var uploadStatus = myUploader.SendMyFileToS3(st, myBucketName, s3DirectoryName, s3FileName);
                     if (uploadStatus == true)
                     {
-                        Response.Write("successfully uploaded");
+                        Content("successfully uploaded");
                     }
                     else
-                        Response.Write("Error");
+                        Content("Error");
 
                     return RedirectToAction("Index");
                 }
